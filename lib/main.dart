@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/models/cart.dart';
+import 'package:sandwich_shop/repositories/pricing_repository.dart';
 
 void main() {
   runApp(const App());
@@ -32,6 +33,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   final Cart _cart = Cart();
+  final PricingRepository _pricingRepository = PricingRepository();
   final TextEditingController _notesController = TextEditingController();
 
   SandwichType _selectedSandwichType = SandwichType.veggieDelight;
@@ -196,6 +198,11 @@ class _OrderScreenState extends State<OrderScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              CartSummary(
+                cart: _cart,
+                pricingRepository: _pricingRepository,
+              ),
+              const SizedBox(height: 20),
               SizedBox(
                 height: 100,
                 child: Image.asset(
@@ -340,6 +347,66 @@ class OrderItemDisplay extends StatelessWidget {
           style: normalText,
         ),
       ],
+    );
+  }
+}
+
+class CartSummary extends StatelessWidget {
+  final Cart cart;
+  final PricingRepository pricingRepository;
+
+  const CartSummary({
+    super.key,
+    required this.cart,
+    required this.pricingRepository,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    int totalItems = cart.totalQuantity;
+    double totalPrice = cart.totalPrice(pricingRepository);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Cart Summary',
+                style: heading2,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Items: $totalItems',
+                style: normalText,
+                key: const Key('cart_items_count'),
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Text(
+                'Total Price',
+                style: heading2,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '\$${totalPrice.toStringAsFixed(2)}',
+                style: normalText,
+                key: const Key('cart_total_price'),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
