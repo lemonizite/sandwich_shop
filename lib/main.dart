@@ -56,9 +56,12 @@ class _OrderScreenState extends State<OrderScreen> {
   void _addToCart() {
     if (_quantity > 0) {
       final Sandwich sandwich = Sandwich(
+        id: _selectedSandwichType.name,
         type: _selectedSandwichType,
         isFootlong: _isFootlong,
         breadType: _selectedBreadType,
+        description: '',
+        available: true,
       );
 
       setState(() {
@@ -88,8 +91,14 @@ class _OrderScreenState extends State<OrderScreen> {
   List<DropdownMenuEntry<SandwichType>> _buildSandwichTypeEntries() {
     List<DropdownMenuEntry<SandwichType>> entries = [];
     for (SandwichType type in SandwichType.values) {
-      Sandwich sandwich =
-          Sandwich(type: type, isFootlong: true, breadType: BreadType.white);
+      Sandwich sandwich = Sandwich(
+        id: type.name,
+        type: type,
+        isFootlong: true,
+        breadType: BreadType.white,
+        description: '',
+        available: true,
+      );
       DropdownMenuEntry<SandwichType> entry = DropdownMenuEntry<SandwichType>(
         value: type,
         label: sandwich.name,
@@ -113,9 +122,12 @@ class _OrderScreenState extends State<OrderScreen> {
 
   String _getCurrentImagePath() {
     final Sandwich sandwich = Sandwich(
+      id: _selectedSandwichType.name,
       type: _selectedSandwichType,
       isFootlong: _isFootlong,
       breadType: _selectedBreadType,
+      description: '',
+      available: true,
     );
     return sandwich.image;
   }

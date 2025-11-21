@@ -10,9 +10,13 @@ void main() {
     test('adding items increases total quantity and items list', () {
       final cart = Cart();
       final s1 = Sandwich(
-          type: SandwichType.veggieDelight,
-          isFootlong: false,
-          breadType: BreadType.white);
+        id: 'veggie_1',
+        type: SandwichType.veggieDelight,
+        isFootlong: false,
+        breadType: BreadType.white,
+        description: 'Fresh veggie delight',
+        available: true,
+      );
 
       cart.add(s1);
       expect(cart.totalQuantity, 1);
@@ -27,9 +31,13 @@ void main() {
     test('updateQuantity and remove behave correctly', () {
       final cart = Cart();
       final s1 = Sandwich(
-          type: SandwichType.chickenTeriyaki,
-          isFootlong: true,
-          breadType: BreadType.wheat);
+        id: 'chicken_1',
+        type: SandwichType.chickenTeriyaki,
+        isFootlong: true,
+        breadType: BreadType.wheat,
+        description: 'Delicious chicken teriyaki',
+        available: true,
+      );
       cart.add(s1, quantity: 2);
       expect(cart.quantityFor(s1), 2);
 
@@ -44,13 +52,21 @@ void main() {
     test('totalPrice uses PricingRepository', () {
       final cart = Cart();
       final sixInch = Sandwich(
-          type: SandwichType.tunaMelt,
-          isFootlong: false,
-          breadType: BreadType.white);
+        id: 'tuna_six',
+        type: SandwichType.tunaMelt,
+        isFootlong: false,
+        breadType: BreadType.white,
+        description: 'Tasty tuna melt',
+        available: true,
+      );
       final footlong = Sandwich(
-          type: SandwichType.meatballMarinara,
-          isFootlong: true,
-          breadType: BreadType.wheat);
+        id: 'meatball_fl',
+        type: SandwichType.meatballMarinara,
+        isFootlong: true,
+        breadType: BreadType.wheat,
+        description: 'Meatball marinara special',
+        available: true,
+      );
 
       cart.add(sixInch, quantity: 2); // 2 * 7 = 14
       cart.add(footlong, quantity: 1); // 1 * 11 = 11
