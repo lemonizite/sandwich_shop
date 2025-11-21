@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/views/app_styles.dart';
 import 'package:sandwich_shop/repositories/order_repository.dart';
+import 'package:sandwich_shop/repositories/pricing_repository.dart';
 
 enum BreadType { white, wheat, wholemeal }
 
@@ -33,14 +34,17 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   late final OrderRepository _orderRepository;
+  late final PricingRepository _pricingRepository;
   final TextEditingController _notesController = TextEditingController();
   bool _isFootlong = true;
   BreadType _selectedBreadType = BreadType.white;
+  bool _isToasted = false;
 
   @override
   void initState() {
     super.initState();
     _orderRepository = OrderRepository(maxQuantity: widget.maxQuantity);
+    _pricingRepository = const PricingRepository();
     _notesController.addListener(() {
       setState(() {});
     });
@@ -119,6 +123,12 @@ class _OrderScreenState extends State<OrderScreen> {
               breadType: _selectedBreadType,
               orderNote: noteForDisplay,
             ),
+            const SizedBox(height: 8),
+            // Display total price
+            Text(
+              'Total: £${_pricingRepository.totalPrice(quantity: _orderRepository.quantity, isFootlong: _isFootlong).toStringAsFixed(2)}',
+              style: normalText,
+            ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -129,6 +139,20 @@ class _OrderScreenState extends State<OrderScreen> {
                   onChanged: _onSandwichTypeChanged,
                 ),
                 const Text('footlong', style: normalText),
+              ],
+            ),
+            // Add toasted switch row below sandwich type switch row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('untoasted', style: normalText),
+                Switch(
+                  value: _isToasted,
+                  onChanged: (value) {
+                    setState(() => _isToasted = value);
+                  },
+                ),
+                const Text('toasted', style: normalText),
               ],
             ),
             const SizedBox(height: 10),
