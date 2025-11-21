@@ -1,126 +1,76 @@
-# Sandwich Shop Flutter App
+# Sandwich Shop
 
-A modern, user-friendly Flutter application for browsing, customizing, and ordering delicious sandwiches. Designed for both Android and iOS, this app streamlines the sandwich ordering experience with an intuitive interface and robust features.
+This is a simple Flutter app that allows users to order sandwiches.
+The app is built using Flutter and Dart, and it is designed primarily to be run in a web
+browser.
 
-## Features
+## Install the essential tools
 
-- Browse a menu of sandwiches with images and descriptions
-- Customize sandwiches with a variety of ingredients and extras
-- Add items to a cart and manage your order
-- Place orders and view order history
-- Responsive design for mobile and tablet
-- Smooth navigation and engaging UI
+1. **Terminal**:
 
----
+    - **macOS** – use the built-in Terminal app by pressing **⌘ + Space**, typing **Terminal**, and pressing **Return**.
+    - **Windows** – open the start menu using the **Windows** key. Then enter **cmd** to open the **Command Prompt**. Alternatively, you can use **Windows PowerShell** or **Windows Terminal**.
 
-## Installation and Setup
+2. **Git** – verify that you have `git` installed by entering `git --version`, in the terminal.
+    If this is missing, download the installer from [Git's official site](https://git-scm.com/downloads?utm_source=chatgpt.com).
 
-### Prerequisites
+3. **Package managers**:
 
-- **Operating System:** Windows, macOS, or Linux
-- **Flutter SDK:** [Install Flutter](https://flutter.dev/docs/get-started/install)
-- **Dart SDK:** Included with Flutter
-- **Android Studio/Xcode:** For emulator/simulator or device deployment
-- **Git:** For cloning the repository
+    - **Homebrew** (macOS) – verify that you have `brew` installed with `brew --version`; if missing, follow the instructions on the [Homebrew installation page](https://brew.sh/).
+    - **Chocolatey** (Windows) – verify that you have `choco` installed with `choco --version`; if missing, follow the instructions on the [Chocolatey installation page](https://chocolatey.org/install).
 
-### Clone the Repository
+4. **Flutter SDK** – verify that you have `flutter` installed and it is working with `flutter doctor`; if missing, install it using your package manager:
+
+    - **macOS**: `brew install --cask flutter`
+    - **Windows**: `choco install flutter`
+
+5. **Visual Studio Code** – verify that you have `code` installed with `code --version`; if missing, use your package manager to install it:
+
+    - **macOS**: `brew install --cask visual-studio-code`
+    - **Windows**: `choco install vscode`
+
+## Get the code
+
+### If this is your first time working on this project
+
+Enter the following commands in your terminal to clone the repository and
+open it in Visual Studio Code.
+You may want to change directory (`cd`) to the directory where you want to clone the
+repository first.
 
 ```bash
-git clone https://github.com/yourusername/sandwich_shop.git
+git clone --branch 5 https://github.com/manighahrmani/sandwich_shop
 cd sandwich_shop
+code .
 ```
 
-### Install Dependencies
+### If you have already cloned the repository
+
+Enter the following commands in your terminal to switch to the correct branch.
+Remember to `cd` to the directory where you cloned the repository first.
+
+```bash
+git fetch origin
+git checkout 5
+```
+
+## Run the app
+
+Open the integrated terminal in Visual Studio Code by first opening the Command
+Palette with **⌘ + Shift + P** (macOS) or **Ctrl + Shift + P** (Windows) and
+typing **Terminal: Create New Terminal** then pressing **Enter**.
+
+In the terminal, run the following commands to install the dependencies and run
+the app in your web browser:
 
 ```bash
 flutter pub get
+flutter run
 ```
 
-### Run the App
+## Get support
 
-- **Android/iOS Emulator:**  
-    Start your emulator/simulator, then run:
-    ```bash
-    flutter run
-    ```
-- **Physical Device:**  
-    Connect your device and run:
-    ```bash
-    flutter run
-    ```
-
----
-
-## Usage
-
-1. **Browse Menu:**  
-     Launch the app to view the sandwich menu.
-2. **Customize Order:**  
-     Select a sandwich to customize ingredients and extras.
-3. **Add to Cart:**  
-     Add your customized sandwich to the cart.
-4. **Checkout:**  
-     Review your cart and place your order.
-5. **Order History:**  
-     View your previous orders from the profile or history section.
-
-### Running Tests
-
-```bash
-flutter test
-```
-
-### Screenshots
-
-<!-- Replace with your own screenshots -->
-![Menu Screen](screenshots/menu.png)
-![Customization Screen](screenshots/customize.png)
-![Cart Screen](screenshots/cart.png)
-
----
-
-## Project Structure & Technologies
-
-```
-sandwich_shop/
-├── lib/
-│   ├── main.dart           # App entry point
-│   ├── models/             # Data models (Sandwich, Order, etc.)
-│   ├── screens/            # UI screens (Menu, Cart, History, etc.)
-│   ├── widgets/            # Reusable UI components
-│   └── services/           # Business logic, data handling
-├── test/                   # Unit and widget tests
-├── pubspec.yaml            # Dependencies and assets
-```
-
-**Key Packages:**
-- `provider` or `bloc` for state management
-- `http` for API calls (if applicable)
-- `flutter_test` for testing
-
-**Development Tools:**  
-Flutter DevTools, Android Studio, VS Code
-
----
-
-## Known Issues & Future Improvements
-
-- [ ] Add user authentication
-- [ ] Integrate payment gateway
-- [ ] Improve accessibility
-- [ ] Add localization support
-
-**Contributions:**  
-Pull requests are welcome! Please open an issue first to discuss changes.
-
----
-
-## Contact
-
-**Author:** [Lem Wilton]  
-**Email:** up2276395@myport.ac.uk  
-**GitHub:** [lemonizite](https://github.com/lemonizite)
-
----
-
-*Feel free to reach out for questions, suggestions, or collaboration!*
+Use [the dedicated Discord channel](https://discord.com/channels/760155974467059762/1370633732779933806)
+to ask your questions and get help from the community.
+Please provide as much context as possible, including the error messages you are seeing and
+screenshots (you can open Discord in your web browser).

@@ -34,17 +34,16 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   late final OrderRepository _orderRepository;
-  late final PricingRepository _pricingRepository;
   final TextEditingController _notesController = TextEditingController();
   bool _isFootlong = true;
   BreadType _selectedBreadType = BreadType.white;
-  bool _isToasted = false;
+  late final PricingRepository _pricingRepository;
 
   @override
   void initState() {
     super.initState();
     _orderRepository = OrderRepository(maxQuantity: widget.maxQuantity);
-    _pricingRepository = const PricingRepository();
+    _pricingRepository = PricingRepository();
     _notesController.addListener(() {
       setState(() {});
     });
@@ -94,6 +93,11 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double totalPrice = _pricingRepository.calculatePrice(
+      quantity: _orderRepository.quantity,
+      isFootlong: _isFootlong,
+    );
+
     String sandwichType = 'footlong';
     if (!_isFootlong) {
       sandwichType = 'six-inch';
@@ -123,11 +127,10 @@ class _OrderScreenState extends State<OrderScreen> {
               breadType: _selectedBreadType,
               orderNote: noteForDisplay,
             ),
-            const SizedBox(height: 8),
-            // Display total price
+            const SizedBox(height: 20),
             Text(
-              'Total: £${_pricingRepository.totalPrice(quantity: _orderRepository.quantity, isFootlong: _isFootlong).toStringAsFixed(2)}',
-              style: normalText,
+              'Total Price: £${totalPrice.toStringAsFixed(2)}',
+              style: heading2,
             ),
             const SizedBox(height: 20),
             Row(
@@ -139,20 +142,6 @@ class _OrderScreenState extends State<OrderScreen> {
                   onChanged: _onSandwichTypeChanged,
                 ),
                 const Text('footlong', style: normalText),
-              ],
-            ),
-            // Add toasted switch row below sandwich type switch row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('untoasted', style: normalText),
-                Switch(
-                  value: _isToasted,
-                  onChanged: (value) {
-                    setState(() => _isToasted = value);
-                  },
-                ),
-                const Text('toasted', style: normalText),
               ],
             ),
             const SizedBox(height: 10),
