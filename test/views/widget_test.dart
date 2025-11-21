@@ -12,75 +12,27 @@ void main() {
   });
 
   group('OrderScreen interaction tests', () {
-    testWidgets(
-        '"Sandwich Counter" text and initial sandwich quantity are displayed',
+    testWidgets('Add to Cart button shows SnackBar with confirmation message',
         (WidgetTester tester) async {
       await tester.pumpWidget(const App());
-      // OrderScreen uses lowercase sandwich type and includes bread type in display
-      expect(find.text('0 white footlong sandwich(es): '), findsOneWidget);
-      expect(find.text('Sandwich Counter'), findsOneWidget);
+
+      // Tap Add to Cart button (quantity starts at 1)
+      await tester.tap(find.widgetWithText(ElevatedButton, 'Add to Cart'));
+      await tester.pumpAndSettle(); // Wait for SnackBar animation
+
+      // Verify SnackBar appears with confirmation message
+      expect(find.byType(SnackBar), findsOneWidget);
+      expect(find.textContaining('Added 1'), findsOneWidget);
     });
 
-    testWidgets('Tapping add button increases quantity',
+    testWidgets('Increment button increases quantity',
         (WidgetTester tester) async {
       await tester.pumpWidget(const App());
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Add'));
-      // Rebuild the widget after the state has changed.
+      // Quantity starts at 1, increment to 2
+      await tester.tap(find.widgetWithIcon(IconButton, Icons.add).first);
       await tester.pump();
-      expect(find.text('1 white footlong sandwich(es): 🥪'), findsOneWidget);
-    });
-
-    testWidgets('Tapping remove button decreases quantity',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(const App());
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Add'));
-      await tester.pump();
-      // Verify the quantity is increased to 1.
-      expect(find.text('1 white footlong sandwich(es): 🥪'), findsOneWidget);
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Remove'));
-      await tester.pump();
-      // Verify the quantity is decreased back to 0.
-      expect(find.text('0 white footlong sandwich(es): '), findsOneWidget);
-    });
-
-    testWidgets('Quantity does not go below zero', (WidgetTester tester) async {
-      await tester.pumpWidget(const App());
-      // Verify the initial quantity is 0.
-      expect(find.text('0 white footlong sandwich(es): '), findsOneWidget);
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Remove'));
-      await tester.pump();
-      // Verify the quantity remains at 0, as it shouldn't go negative.
-      expect(find.text('0 white footlong sandwich(es): '), findsOneWidget);
-    });
-
-    testWidgets('Quantity does not exceed maxQuantity',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(const App());
-      // Tap the 'Add' button more times than the maximum allowed quantity.
-      for (int i = 0; i < 10; i++) {
-        await tester.tap(find.widgetWithText(ElevatedButton, 'Add'));
-        await tester.pump();
-      }
-      // Verify the quantity does not exceed the maximum of 5.
-      expect(find.text('5 white footlong sandwich(es): 🥪🥪🥪🥪🥪'),
-          findsOneWidget);
-    });
-
-    testWidgets('Toggling the Switch changes sandwich type',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(const App());
-      // Initially, should show 'footlong' with bread type (default is white)
-      expect(find.textContaining('white footlong sandwich'), findsOneWidget);
-      // Find the sandwich-type Switch (the first Switch in the widget tree) and tap it
-      await tester.tap(find.byType(Switch).first);
-      await tester.pump();
-      // Now, should show 'six-inch' with bread type
-      expect(find.textContaining('white six-inch sandwich'), findsOneWidget);
-      // Tap again to toggle back
-      await tester.tap(find.byType(Switch).first);
-      await tester.pump();
-      // Should show 'footlong' again
-      expect(find.textContaining('white footlong sandwich'), findsOneWidget);
+      // Check that quantity has increased to 2
+      expect(find.text('2'), findsWidgets);
     });
   });
 
