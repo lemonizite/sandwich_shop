@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sandwich_shop/views/app_styles.dart';
 
 void main() {
   runApp(const App());
@@ -46,21 +45,26 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sandwich Counter')),
+      appBar: AppBar(
+        title: const Text('Sandwich Counter'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            OrderItemDisplay(_quantity, 'Footlong'),
+            OrderItemDisplay(
+              _quantity,
+              'Footlong',
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => _increaseQuantity,
+                  onPressed: _increaseQuantity,
                   child: const Text('Add'),
                 ),
                 ElevatedButton(
-                  onPressed: () => _decreaseQuantity,
+                  onPressed: _decreaseQuantity,
                   child: const Text('Remove'),
                 ),
               ],
