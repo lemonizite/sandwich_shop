@@ -30,6 +30,6 @@ class OrderItemDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('This is a placeholder for OrderItemDIsplay');
+    return Text('$quantity $itemType sandwich(es): ${'\u{1F96A}' * quantity}');
   }
 }
