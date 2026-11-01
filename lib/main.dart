@@ -15,7 +15,20 @@ class App extends StatelessWidget {
         appBar: AppBar(title: const Text('Sandwich Counter')),
         body: Align(
           alignment: Alignment.center,
-          child: OrderItemDisplay(5, 'Footlong'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed:() => print('Add button pressed!'),
+                child: const Text('Add'),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () => print('Remove button pressed!'), 
+                child: const Text('Remove'),
+              ),
+            ],
+          ),
         ),
       ),
     );
