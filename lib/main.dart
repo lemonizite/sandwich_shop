@@ -9,28 +9,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Sandwich Shop App',
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Sandwich Counter')),
-        body: Align(
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed:() => print('Add button pressed!'),
-                child: const Text('Add'),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () => print('Remove button pressed!'), 
-                child: const Text('Remove'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      home: OrderScreen(maxQuantity: 5),
     );
   }
 }
@@ -82,6 +63,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   onPressed: () => print('Add button pressed!'),
                   child: const Text('Add'),
                 ),
+                const SizedBox(width: 5),
                 ElevatedButton(
                   onPressed: () => print('Remove button pressed!'), 
                   child: const Text('Remove'),
